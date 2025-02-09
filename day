@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Surprise</title>
+    <style>
+        body {
+            text-align: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #ffdde1);
+            animation: backgroundAnimation 10s infinite alternate;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        @keyframes backgroundAnimation {
+            from { filter: hue-rotate(0deg); }
+            to { filter: hue-rotate(360deg); }
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3rem;
+            margin-top: 50px;
+        }
+
+        #countdown {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #yesButton {
+            background-color: #ff4b5c;
+            color: white;
+        }
+
+        #noButton {
+            background-color: #4b7bec;
+            color: white;
+            position: absolute;
+        }
+
+        @keyframes loveFall {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Will you be my Valentine, Bhumika? ❤️</h1>
+
+    <div id="countdown"></div>
+
+    <div class="buttons">
+        <button id="yesButton">Yes ❤️</button>
+        <button id="noButton">No 😢</button>
+    </div>
+
+    <audio autoplay loop>
+        <source src="your-music-file.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const valentine = new Date(now.getFullYear(), 1, 14); 
+            const diff = valentine - now;
+            if (diff <= 0) {
+                document.getElementById("countdown").innerText = "Happy Valentine's Day, Love! ❤️";
+            } else {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("countdown").innerText = `${days} days until Valentine's Day!`;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Love Message on "Yes"
+        document.getElementById("yesButton").addEventListener("click", function() {
+            alert("Happy Valentine's Day, my love! You mean the world to me. 💖");
+        });
+
+        // "No" Button Moves Away
+        const noBtn = document.getElementById("noButton");
+        noBtn.addEventListener("mouseover", () => {
+            noBtn.style.left = `${Math.random() * window.innerWidth}px`;
+            noBtn.style.top = `${Math.random() * window.innerHeight}px`;
+        });
+
+        // Falling Hearts Animation
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.innerHTML = "❤️";
+            heart.style.position = "fixed";
+            heart.style.left = `${Math.random() * window.innerWidth}px`;
+            heart.style.top = "-50px";
+            heart.style.fontSize = "30px";
+            heart.style.animation = "loveFall 5s linear infinite";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 500);
+    </script>
+
+</body>
+</html>
